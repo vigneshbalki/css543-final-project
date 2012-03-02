@@ -65,7 +65,6 @@
 				{ id: 1 }, 
 				function(data) { 
 					$("#routes_data").html(data); 
-					
 				}
 			)
 			

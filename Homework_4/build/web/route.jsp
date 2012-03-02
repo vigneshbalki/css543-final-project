@@ -28,28 +28,59 @@
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBwEjS8fI30MwKEpwcnAf4NdOZym66Ot5s&sensor=false">
     </script>
     <script type="text/javascript">
-      function initialize() {
-		  
-		var myLatLng = new google.maps.LatLng(47.6063889, -122.3308333);
-		  
-        var myOptions = {
-			center: myLatLng, 
-			zoom: 12,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            myOptions);
-			
-			
-		var marker = new google.maps.Marker({
-			position: myLatLng,
-			map: map,
-			title:"Hello World!", 
-			animation: google.maps.Animation.DROP
-		});
-  
-      }
+		function initialize() {
+
+			var myLatLng = new google.maps.LatLng(47.6063889, -122.3308333);
+
+			var myOptions = {
+				center: myLatLng, 
+				zoom: 12,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById("map_canvas"),
+				myOptions);
+
+
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				map: map,
+				title:"Hello World!", 
+				animation: google.maps.Animation.DROP
+			});
+
+		}
+
+		function qs(key) {
+			key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
+			var match = location.search.match(new RegExp("[?&]"+key+"=([^&]+)(&|$)"));
+			return match && decodeURIComponent(match[1]);
+		}
     </script>
+	
+	
+	<script type="text/javascript"
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+	</script>
+	
+	<script text="text/javascript"> 
+	
+		$(document).ready(function() {
+			
+			var queryString = qs("routeid");  
+			
+			$.get(
+				"Route", 
+				{ routeid: queryString }, 
+				function(data) { 
+					$("#route_data").html(data); 
+				}
+			)
+			
+			
+		}); 
+		
+	</script>
+	
 	
 </head>
 <body onload="initialize()">
@@ -106,6 +137,8 @@
 			<div class="style1" id="content"> 
 
 				<h1>Route title</h1>
+				
+				<p id="route_data"></p>
 				
 				<div id="map_canvas" style="width:400px; height:400px"></div>
 			

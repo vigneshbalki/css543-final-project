@@ -36,7 +36,9 @@ public class Route extends HttpServlet {
 			 * TODO output your page here. You may use following sample code.
 			 */
 			
-			out.println("<h1>Servlet Route at " + request.getContextPath() + "</h1>");
+			 
+			
+			out.println("<p>Get routeid: " + request.getParameter("routeid") + "</p>");
 			
 		} finally {			
 			out.close();
