@@ -37,6 +37,10 @@ public class Routes extends HttpServlet {
 			 */
 			//out.println("<p>Servlet Routes at " + request.getContextPath() + "</p>");
 			
+			
+			// This is where we want to request the list of all routes
+			// and create links that the user can click on, like so: 
+			
 			String title = "Daily route #1"; 
 			int routeid = 1; 
 			
@@ -47,7 +51,9 @@ public class Routes extends HttpServlet {
 				+ " }" ; 
 			
 			out.println("<a href='route.jsp?routeid=" + routeid + "'>" + title + "</a>"); 
-        
+			
+			
+			
 			
 		} finally {			
 			//out.close();

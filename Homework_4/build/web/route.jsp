@@ -50,6 +50,7 @@
 
 		}
 
+		// get value from query string parameter/key
 		function qs(key) {
 			key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
 			var match = location.search.match(new RegExp("[?&]"+key+"=([^&]+)(&|$)"));
@@ -66,11 +67,11 @@
 	
 		$(document).ready(function() {
 			
-			var queryString = qs("routeid");  
+			var routeIdFromQueryString = qs("routeid");  
 			
 			$.get(
 				"Route", 
-				{ routeid: queryString }, 
+				{ routeid: routeIdFromQueryString }, 
 				function(data) { 
 					$("#route_data").html(data); 
 				}

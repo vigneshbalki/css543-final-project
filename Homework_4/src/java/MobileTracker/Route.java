@@ -40,6 +40,12 @@ public class Route extends HttpServlet {
 			
 			out.println("<p>Get routeid: " + request.getParameter("routeid") + "</p>");
 			
+			
+			// This is where we need to request data for the given routeid
+			// data returned should be a list of lat/lon points
+			// and any other data for the route 
+			
+			
 		} finally {			
 			out.close();
 		}
