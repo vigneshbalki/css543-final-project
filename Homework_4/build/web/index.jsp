@@ -51,6 +51,28 @@
       }
     </script>
 	
+	
+	<script type="text/javascript"
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+	</script>
+	
+	<script text="text/javascript"> 
+	
+		$(document).ready(function() {
+			
+			$.get(
+				"Routes", 
+				{ id: 1 }, 
+				function(data) { 
+					$("#routes_data").html(data); 
+				}
+			)
+			
+			
+		}); 
+		
+	</script>
+	
 </head>
 <body onload="initialize()">
 	
@@ -109,7 +131,9 @@
 				
 				<p>Click on a route below to view details:</p>
 				
-				<p><jsp:include page="Routes" /></p>
+				<p><% // jsp:include page="Routes" / %></p>
+				
+				<p id="routes_data"></p>
 				
 				<p><a href="route.jsp">Route title</a></p>
 			

@@ -4,9 +4,17 @@
         <servlet-name>Routes</servlet-name>
         <servlet-class>MobileTracker.Routes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Route</servlet-name>
+        <servlet-class>MobileTracker.Route</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Routes</servlet-name>
         <url-pattern>/Routes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Route</servlet-name>
+        <url-pattern>/Route</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

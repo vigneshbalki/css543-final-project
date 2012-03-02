@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author clivdahl
  */
-public class Routes extends HttpServlet {
+public class Route extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP
@@ -35,22 +35,11 @@ public class Routes extends HttpServlet {
 			/*
 			 * TODO output your page here. You may use following sample code.
 			 */
-			//out.println("<p>Servlet Routes at " + request.getContextPath() + "</p>");
 			
-			String title = "Daily route #1"; 
-			int routeid = 1; 
-			
-			String dataString = 
-				"{" 
-				+ " title:" + '"' + title + '"' + ","
-				+ " routeid:" + '"' + routeid + '"' 
-				+ " }" ; 
-			
-			out.println("<a href='route.jsp?routeid=" + routeid + "'>" + title + "</a>"); 
-        
+			out.println("<h1>Servlet Route at " + request.getContextPath() + "</h1>");
 			
 		} finally {			
-			//out.close();
+			out.close();
 		}
 	}
 
