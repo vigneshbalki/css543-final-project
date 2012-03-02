@@ -105,13 +105,9 @@
 
 			<div class="style1" id="content"> 
 
-				<h1>Home</h1>
+				<h1>Route title</h1>
 				
-				<p>Click on a route below to view details:</p>
-				
-				<p><jsp:include page="Routes" /></p>
-				
-				<p><a href="route.jsp">Route title</a></p>
+				<div id="map_canvas" style="width:400px; height:400px"></div>
 			
 			</div>
 
