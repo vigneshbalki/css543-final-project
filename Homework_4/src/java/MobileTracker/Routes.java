@@ -6,6 +6,12 @@ package MobileTracker;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.rmi.Naming;
+import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.Scanner;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,29 +38,22 @@ public class Routes extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			/*
-			 * TODO output your page here. You may use following sample code.
-			 */
-			//out.println("<p>Servlet Routes at " + request.getContextPath() + "</p>");
-			
-			
 			// This is where we want to request the list of all routes
 			// and create links that the user can click on, like so: 
-			
-			String title = "Daily route #1"; 
-			int routeid = 1; 
-			
-			String dataString = 
-				"{" 
-				+ " title:" + '"' + title + '"' + ","
-				+ " routeid:" + '"' + routeid + '"' 
-				+ " }" ; 
-			
-			out.println("<a href='route.jsp?routeid=" + routeid + "'>" + title + "</a>"); 
-			
-			
-			
-			
+			Set<String> routeNames = getRouteNames();
+      Iterator<String> iter = routeNames.iterator();
+      String title;
+      int routeid = 1; 
+      String dataString;
+      
+      while (iter.hasNext()) {
+        title = iter.next();
+        dataString = "{" + " title:" + '"' + title + '"' + ","
+                         + " routeid:" + '"' + routeid + '"' 
+                         + " }" ; 
+        out.println("<a href='route.jsp?routeid=" + routeid + "'>" + title + "</a>");
+        routeid++;
+      }
 		} finally {			
 			//out.close();
 		}
@@ -100,4 +99,27 @@ public class Routes extends HttpServlet {
 	public String getServletInfo() {
 		return "Short description";
 	}// </editor-fold>
+
+  /**
+   * This method handles contacting the RMI route server.
+   * @return A set of route names stored on the route server.
+   */
+  private Set<String> getRouteNames() {
+    String serverIp = "localhost";
+    int port = 7311;
+    Set<String> returnSet = null;
+    
+    try {
+      // get the object reference from the rmi name server
+      server.RouteServerInterface routeServer = 
+              (server.RouteServerInterface) Naming.lookup("rmi://" + serverIp +
+              ":" + port + "/route_server");
+      // ivoke the metod
+      returnSet = routeServer.getRouteNameSet();
+    } catch (Exception e) {
+      e.printStackTrace();
+//      System.exit(-1);
+    }
+    return returnSet;
+  }
 }
