@@ -111,8 +111,8 @@ public class Routes extends HttpServlet {
     
     try {
       // get the object reference from the rmi name server
-      server.RouteServerInterface routeServer = 
-              (server.RouteServerInterface) Naming.lookup("rmi://" + serverIp +
+      MobileTracker.RouteServerInterface routeServer = 
+              (MobileTracker.RouteServerInterface) Naming.lookup("rmi://" + serverIp +
               ":" + port + "/route_server");
       // ivoke the metod
       returnSet = routeServer.getRouteNameSet();

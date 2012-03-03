@@ -32,12 +32,11 @@ public class Route extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			server.Route aRoute = getRoute();
-			 
-			
 			out.println("<p>Get routeid: " + request.getParameter("routeid") + "</p>");
+			int routeID = Integer.parseInt(request.getParameter("routeid"));
+      String aRoute = getRoute(routeID);
 			
-			
+      //Do something aRoute
 			// This is where we need to request data for the given routeid
 			// data returned should be a list of lat/lon points
 			// and any other data for the route 
@@ -93,7 +92,7 @@ public class Route extends HttpServlet {
    * 
    * @return 
    */
-  private server.Route getRoute() {
+  private String getRoute(int routeID) {
     throw new UnsupportedOperationException("Not yet implemented");
   }
 }
