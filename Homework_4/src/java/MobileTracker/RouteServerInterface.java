@@ -10,5 +10,5 @@ public interface RouteServerInterface extends Remote {
   
   public String getRoute(int routeID) throws RemoteException;
   
-  public void addRoute(int routeID, Route r) throws RemoteException;
+  public void addRoute(int routeID, RouteServlet r) throws RemoteException;
 }

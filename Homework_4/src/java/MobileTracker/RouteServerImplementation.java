@@ -45,7 +45,7 @@ public class RouteServerImplementation extends UnicastRemoteObject
   * @throws RemoteException 
   */
   @Override
-  public void addRoute(int routeID, Route r) throws RemoteException {
+  public void addRoute(int routeID, RouteServlet r) throws RemoteException {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
