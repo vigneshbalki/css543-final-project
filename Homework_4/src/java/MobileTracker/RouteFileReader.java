@@ -20,15 +20,10 @@ import java.util.Scanner;
  */
 public class RouteFileReader {
 	
-	
-	
-	
-	public static void main(String args[]) {
-		
+	public static void main(String args[]) {	
 		FileReader reader; 
 		BufferedReader bufferedReader; 
 		JsonReader jsonReader; 
-		
 		
 		String filePath = "src/java/MobileTracker/route1.json"; 
 		
@@ -38,44 +33,21 @@ public class RouteFileReader {
 		} catch (IOException e) {
 			
 		}
-		
 		//System.out.println("test\n"); 
-		
 		//String curDir = System.getProperty("user.dir");
-		
 		//System.out.println(curDir); 
-		
-		
+	
 		//try {
 			//reader = new FileReader("src/java/MobileTracker/route1.json"); 
-			
 			//bufferedReader = new BufferedReader(reader); 
-			
-			
-			
 			//jsonReader = new JsonReader(reader);
-			
 			//Gson gson = new Gson(); 
-		
-						
-			
 			//String output = gson.fromJson(jsonReader, String.class); 
-		
 			//System.out.println(output); 
-			
-			
 			//System.out.println(reader); 
-			
-			
 		//} catch (FileNotFoundException e) {
 			//System.out.println("File not found\n"); 
-		//} 
-	
-		
-		
-		
-		
-		
+		//} 		
 	}
 	
 	/* 
