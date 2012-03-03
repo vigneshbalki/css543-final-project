@@ -32,10 +32,7 @@ public class Route extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		try {
-			/*
-			 * TODO output your page here. You may use following sample code.
-			 */
-			
+			server.Route aRoute = getRoute();
 			 
 			
 			out.println("<p>Get routeid: " + request.getParameter("routeid") + "</p>");
@@ -91,4 +88,12 @@ public class Route extends HttpServlet {
 	public String getServletInfo() {
 		return "Short description";
 	}// </editor-fold>
+
+  /**
+   * 
+   * @return 
+   */
+  private server.Route getRoute() {
+    throw new UnsupportedOperationException("Not yet implemented");
+  }
 }
