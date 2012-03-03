@@ -26,7 +26,7 @@ public class RouteServer {
         throw new Exception();
       }
     } catch (Exception e) {
-      System.err.println("usage: java Server port");
+      System.err.println("Usage: java Server port");
       System.exit(-1);
     }
 
