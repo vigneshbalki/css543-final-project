@@ -143,8 +143,10 @@ p {
 	position: relative; 
 	/* height: 33px; 
 	width: 184px; */ 
-	top: 6px; 
+	/* top: 6px; */ 
 	left: 0px; 
+	height: 39px; 
+	
 }
 
 #logo_small p {
@@ -154,6 +156,18 @@ p {
 	line-height: 40px; 
 	font-size: 1.3em; 
 	color: #FFF;
+}
+
+#logo_small a { 
+	color: #FFF; 
+	line-height: 39px; 
+	font-size: 1.3em; 
+	font-style: bold; 
+}
+
+#logo_small a:hover {
+	text-decoration: none; 
+	color: #1C94C4; 
 }
 
 #menu_bar {

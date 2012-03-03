@@ -81,7 +81,7 @@
 		<div id="menu_bar">
 			
 			<div id="logo_small" class="box_float_left"> 
-				<a href="index.jsp">Home<!--img src="images/Logo_master.png" height="27" /--></a>
+				<a href="index.jsp">MobileTracker<!--img src="images/Logo_master.png" height="27" /--></a>
 			</div>
 			
 			<div class="box_float_right">
@@ -133,9 +133,11 @@
 				
 				<p><% // jsp:include page="Routes" / %></p>
 				
+				<h2>Route title</h2>
+				
 				<p id="routes_data"></p>
 				
-				<p><a href="route.jsp">Route title</a></p>
+				
 			
 			</div>
 

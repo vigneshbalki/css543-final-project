@@ -41,12 +41,31 @@
 				myOptions);
 
 
+			// how to drop one pin on the map 
 			var marker = new google.maps.Marker({
 				position: myLatLng,
 				map: map,
 				title:"Hello World!", 
 				animation: google.maps.Animation.DROP
 			});
+			
+			// how to create a line on the map: 
+			var flightPlanCoordinates = [
+				new google.maps.LatLng(37.772323, -122.214897),
+				new google.maps.LatLng(21.291982, -157.821856),
+				new google.maps.LatLng(-18.142599, 178.431),
+				new google.maps.LatLng(-27.46758, 153.027892)
+			];
+			var flightPath = new google.maps.Polyline({
+				path: flightPlanCoordinates,
+				strokeColor: "#FF0000",
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			});
+
+			flightPath.setMap(map);
+			
+			
 
 		}
 
@@ -91,7 +110,7 @@
 		<div id="menu_bar">
 			
 			<div id="logo_small" class="box_float_left"> 
-				<a href="index.jsp">Home<!--img src="images/Logo_master.png" height="27" /--></a>
+				<a href="index.jsp">MobileTracker<!--img src="images/Logo_master.png" height="27" /--></a>
 			</div>
 			
 			<div class="box_float_right">
