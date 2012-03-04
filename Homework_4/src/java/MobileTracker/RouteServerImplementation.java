@@ -1,6 +1,6 @@
 package MobileTracker;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 import java.rmi.server.*;
 import java.util.*;
 
@@ -20,9 +20,15 @@ public class RouteServerImplementation extends UnicastRemoteObject
    * @throws RemoteException 
    */
   @Override
-  public Set<String> getRouteNameSet() throws RemoteException {
+  public ArrayList<Route> getRouteNameSet() throws RemoteException {
+    ArrayList<Route> routes = new ArrayList<Route>() {};
+    
+    for (int i = 0; i < 3; i++) {
+      Route r = new Route("Route " + i, i);
+      routes.add(r);
+    }
     //not sure how this will work.
-    return null;
+    return routes;
   }
 
   /**
@@ -34,19 +40,7 @@ public class RouteServerImplementation extends UnicastRemoteObject
    */
   @Override
   public String getRoute(int routeID) throws RemoteException {
-    //reader.readFile(null)
-    return null;
+    String r = "this is the route asscoiated with route " + routeID;
+    return r;
   }
-
- /**
-  * 
-  * @param routeID
-  * @param r
-  * @throws RemoteException 
-  */
-  @Override
-  public void addRoute(int routeID, RouteServlet r) throws RemoteException {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
 }

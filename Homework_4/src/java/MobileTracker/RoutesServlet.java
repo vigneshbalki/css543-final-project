@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.rmi.Naming;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author clivdahl
  */
 public class RoutesServlet extends HttpServlet {
-
+  RouteClient client = new RouteClient("localhost", 7311);
 	/**
 	 * Processes requests for both HTTP
 	 * <code>GET</code> and
@@ -40,19 +37,12 @@ public class RoutesServlet extends HttpServlet {
 		try {
 			// This is where we want to request the list of all routes
 			// and create links that the user can click on, like so: 
-			Set<String> routeNames = getRouteNames();
-      Iterator<String> iter = routeNames.iterator();
-      String title;
-      int routeid = 1; 
-      String dataString;
+			ArrayList<Route> routeNames = client.getRouteNames();
+      Iterator<Route> iter = routeNames.iterator();
       
       while (iter.hasNext()) {
-        title = iter.next();
-        dataString = "{" + " title:" + '"' + title + '"' + ","
-                         + " routeid:" + '"' + routeid + '"' 
-                         + " }" ; 
-        out.println("<a href='route.jsp?routeid=" + routeid + "'>" + title + "</a>");
-        routeid++;
+        Route r = iter.next();
+        out.println("<a href='route.jsp?routeid=" + r.getId() + "'>" + r.getName() + "</a>");
       }
 		} finally {			
 			//out.close();
@@ -100,26 +90,5 @@ public class RoutesServlet extends HttpServlet {
 		return "Short description";
 	}// </editor-fold>
 
-  /**
-   * This method handles contacting the RMI route server.
-   * @return A set of route names stored on the route server.
-   */
-  private Set<String> getRouteNames() {
-    String serverIp = "localhost";
-    int port = 7311;
-    Set<String> returnSet = null;
-    
-    try {
-      // get the object reference from the rmi name server
-      MobileTracker.RouteServerInterface routeServer = 
-              (MobileTracker.RouteServerInterface) Naming.lookup("rmi://" + serverIp +
-              ":" + port + "/route_server");
-      // ivoke the metod
-      returnSet = routeServer.getRouteNameSet();
-    } catch (Exception e) {
-      e.printStackTrace();
-//      System.exit(-1);
-    }
-    return returnSet;
-  }
+  
 }

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author clivdahl
  */
 public class RouteServlet extends HttpServlet {
-
+  RouteClient client = new RouteClient("localhost", 7311);
 	/**
 	 * Processes requests for both HTTP
 	 * <code>GET</code> and
@@ -34,14 +34,9 @@ public class RouteServlet extends HttpServlet {
 		try {
 			out.println("<p>Get routeid: " + request.getParameter("routeid") + "</p>");
 			int routeID = Integer.parseInt(request.getParameter("routeid"));
-      String aRoute = getRoute(routeID);
+      String aRoute = client.getRoute(routeID);
 			
-      //Do something aRoute
-			// This is where we need to request data for the given routeid
-			// data returned should be a list of lat/lon points
-			// and any other data for the route 
-			
-			
+      out.println(aRoute);
 		} finally {			
 			out.close();
 		}
@@ -88,11 +83,5 @@ public class RouteServlet extends HttpServlet {
 		return "Short description";
 	}// </editor-fold>
 
-  /**
-   * 
-   * @return 
-   */
-  private String getRoute(int routeID) {
-    throw new UnsupportedOperationException("Not yet implemented");
-  }
+  
 }
