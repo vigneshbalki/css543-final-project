@@ -31,8 +31,6 @@ public class RouteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
-    out.println("RouteServlet processRequest called");
     
     try {
 			out.println("<p>Get routeid: " + request.getParameter("routeid") + "</p>");
@@ -40,7 +38,6 @@ public class RouteServlet extends HttpServlet {
       String aRoute = client.getRoute(routeID);
 			
       out.println(aRoute);
-      System.out.println(aRoute);
 		} finally {			
 			out.close();
 		}

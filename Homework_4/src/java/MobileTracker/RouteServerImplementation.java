@@ -43,10 +43,10 @@ public class RouteServerImplementation extends UnicastRemoteObject
    * @throws RemoteException 
    */
   @Override
-  public String getRoute(int routeID) throws RemoteException {
+  public Route getRoute(int routeID) throws RemoteException {
     Route r = new Route();
     
     r.load(routeFileNames.get(routeID - 1));
-    return r.toString();
+    return r;
   }
 }

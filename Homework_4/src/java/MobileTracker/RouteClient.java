@@ -4,6 +4,7 @@
  */
 package MobileTracker;
 
+import com.google.gson.Gson;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
  */
 public class RouteClient {
   RouteServerInterface routeServer;
+  Route currRoute;
   
   public RouteClient(String serverIp, int port) {
     try {
@@ -53,17 +55,36 @@ public class RouteClient {
   
   /**
    * 
-   * @return 
+   * @return The route in json format.
    */
   public String getRoute(int routeID) {
-    String returnRoute = null;
+    Route returnRoute = null;
     
     try {
       // ivoke the metod
       returnRoute = routeServer.getRoute(routeID);
+      currRoute = returnRoute;
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return returnRoute;
+    return returnRoute.toString();
   }
+  
+  /**
+   * 
+   * @return A json array of speeds.
+   */
+  public String getSpeedsFromCurrentRoute() {
+    Gson gson = new Gson();
+    String json = null;
+    double[] speeds = new double[currRoute.locations.size()];
+    
+    for (int i = 0; i < currRoute.locations.size(); i++ ) {
+      speeds[i] = currRoute.locations.get(i).getSpeed();
+    }
+    json = gson.toJson(speeds);
+    
+    return json;
+  }
+  
 }
