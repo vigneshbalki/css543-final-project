@@ -117,9 +117,9 @@
 			
 			<div class="box_float_right">
 			<ul>
-				<li><a href="Menu1"><p>Menu1</p></a></li>
-				<li><a href="Menu2"><p>Menu2</p></a></li>
-				<li><a href="Menu3"><p>Menu3</p></a></li>
+				<li><a href="Menu1"><p></p></a></li>
+				<li><a href="Menu2"><p></p></a></li>
+				<li><a href="Menu3"><p></p></a></li>
 			</ul>
 			</div>
 		</div>
@@ -162,23 +162,10 @@
 				
 				<p id="route_data"></p>
 				
-				<div id="map_canvas" style="width:400px; height:400px"></div>
+				<div id="map_canvas" style="width:600px; height:400px"></div>
 			
 			</div>
-
-			<div id="right_side">
-
-				<h2>Side Nav</h2>
-				
-				<!--p><a href="workportfolio">Work Portfolio</a></p>
-				<p><a href="academicbackground">Academic Background</a></p>
-				<p><a href="schoolportfolio">School Portfolio</a></p>
-				<p><a href="audioportfolio">Audio Portfolio</a></p-->
-				
-				
-
-			</div>
-			 
+ 
 			<div class="clear"></div>
 
 		 </div>

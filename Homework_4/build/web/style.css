@@ -293,14 +293,14 @@ p {
 #content{
 	float: left; 
 	/* width: 515px; */ 
-	width: 600px; 
+	/* width: 600px; */ 
 	margin: 0;
 	padding-right: 30px; 
 	/* padding: 0px 15px 5px 5px; */ 
 	
 	
 	
-	border-right: #ccc dotted 1px; 
+	/* border-right: #ccc dotted 1px; */ 
 }
 
 #tabs_window p {
