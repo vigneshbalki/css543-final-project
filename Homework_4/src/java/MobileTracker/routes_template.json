@@ -1,0 +1,24 @@
+{
+	"routes":[
+		{
+		
+			"routeid": 1, 
+			"title:": "Run To Home", 
+			"locations": [{}]
+		
+		}, 
+		{
+			"routeid": 2, 
+			"title": "Run To Grandma's House", 
+			"locations": [{}]			
+			
+		}, 
+		{
+			
+			"routeid": 3, 
+			"title": "Work Run #1", 
+			"locations": [{}]			
+		}
+	]
+	
+}

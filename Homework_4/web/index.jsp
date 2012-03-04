@@ -61,8 +61,8 @@
 		$(document).ready(function() {
 			
 			$.get(
-				"Routes", 
-				{ id: 1 }, 
+				"RoutesServlet", 
+				{ list: all }, 
 				function(data) { 
 					$("#routes_data").html(data); 
 				}

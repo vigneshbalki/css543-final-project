@@ -86,10 +86,12 @@
 	
 		$(document).ready(function() {
 			
+			// route.jsp?routeid=1
+			
 			var routeIdFromQueryString = qs("routeid");  
 			
 			$.get(
-				"Route", 
+				"RouteServlet", 
 				{ routeid: routeIdFromQueryString }, 
 				function(data) { 
 					$("#route_data").html(data); 
