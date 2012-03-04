@@ -47,6 +47,7 @@ public class RouteClient {
       e.printStackTrace();
 //      System.exit(-1);
     }
+    System.out.println("Returning the following list of routes " + returnSet.toString());
     return returnSet;
   }
   

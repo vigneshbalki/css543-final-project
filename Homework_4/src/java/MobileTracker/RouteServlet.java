@@ -37,6 +37,7 @@ public class RouteServlet extends HttpServlet {
       String aRoute = client.getRoute(routeID);
 			
       out.println(aRoute);
+      System.out.println(aRoute);
 		} finally {			
 			out.close();
 		}

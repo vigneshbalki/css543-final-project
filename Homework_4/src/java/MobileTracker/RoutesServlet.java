@@ -43,6 +43,7 @@ public class RoutesServlet extends HttpServlet {
       while (iter.hasNext()) {
         Route r = iter.next();
         out.println("<a href='route.jsp?routeid=" + r.getId() + "'>" + r.getName() + "</a>");
+        System.out.println(r.getName() + " " + r.getId());
       }
 		} finally {			
 			//out.close();

@@ -41,6 +41,7 @@ public class RouteServerImplementation extends UnicastRemoteObject
   @Override
   public String getRoute(int routeID) throws RemoteException {
     String r = "this is the route asscoiated with route " + routeID;
+    System.out.println(r);
     return r;
   }
 }
