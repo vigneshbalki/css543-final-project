@@ -59,7 +59,6 @@
 	<script text="text/javascript"> 
 	
 		$(document).ready(function() {
-			
 			$.get(
 				"RoutesServlet", 
 				{ list: all }, 
@@ -67,10 +66,7 @@
 					$("#routes_data").html(data); 
 				}
 			)
-			
-			
-			
-			
+
 		}); 
 		
 	</script>

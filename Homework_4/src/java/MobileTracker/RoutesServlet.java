@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.rmi.Naming;
 import java.util.*;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,14 +35,17 @@ public class RoutesServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		try {
+ 
+    try {
 			// This is where we want to request the list of all routes
 			// and create links that the user can click on, like so: 
-			ArrayList<Route> routeNames = client.getRouteNames();
-      Iterator<Route> iter = routeNames.iterator();
+			//ArrayList<Route> routeNames = client.getRouteNames();
+      //Iterator<Route> iter = routeNames.iterator();
       
-      while (iter.hasNext()) {
-        Route r = iter.next();
+      //while (iter.hasNext()) {
+      for (int i = 0; i < 3; i++) {  
+      //Route r = iter.next();
+        Route r = new Route("route " + i, i);
         out.println("<a href='route.jsp?routeid=" + r.getId() + "'>" + r.getName() + "</a>");
         System.out.println(r.getName() + " " + r.getId());
       }

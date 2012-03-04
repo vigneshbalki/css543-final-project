@@ -12,7 +12,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +23,7 @@ import java.util.Scanner;
  */
 public class RouteFileReader {
 	
-//	public static void main(String args[]) {	
+	public static void main(String args[]) {	
 //		FileReader reader; 
 //		BufferedReader bufferedReader; 
 //		JsonReader jsonReader; 
@@ -33,22 +36,23 @@ public class RouteFileReader {
 //		} catch (IOException e) {
 //			
 //		}
-//		//System.out.println("test\n"); 
-//		//String curDir = System.getProperty("user.dir");
-//		//System.out.println(curDir); 
-//	
-//		//try {
-//			//reader = new FileReader("src/java/MobileTracker/route1.json"); 
-//			//bufferedReader = new BufferedReader(reader); 
-//			//jsonReader = new JsonReader(reader);
-//			//Gson gson = new Gson(); 
-//			//String output = gson.fromJson(jsonReader, String.class); 
-//			//System.out.println(output); 
-//			//System.out.println(reader); 
-//		//} catch (FileNotFoundException e) {
-//			//System.out.println("File not found\n"); 
-//		//} 		
-//	}
+    foo();
+		//System.out.println("test\n"); 
+		//String curDir = System.getProperty("user.dir");
+		//System.out.println(curDir); 
+	
+		//try {
+			//reader = new FileReader("src/java/MobileTracker/route1.json"); 
+			//bufferedReader = new BufferedReader(reader); 
+			//jsonReader = new JsonReader(reader);
+			//Gson gson = new Gson(); 
+			//String output = gson.fromJson(jsonReader, String.class); 
+			//System.out.println(output); 
+			//System.out.println(reader); 
+		//} catch (FileNotFoundException e) {
+			//System.out.println("File not found\n"); 
+		//} 		
+	}
 	
 	/* 
 	 * Code for reading the contents of a file to a string 
@@ -60,7 +64,7 @@ public class RouteFileReader {
 		StringBuilder fileContents = new StringBuilder((int)file.length());
 		Scanner scanner = new Scanner(file);
 		String lineSeparator = System.getProperty("line.separator");
-
+    
 		try {
 			while(scanner.hasNextLine()) {        
 				fileContents.append(scanner.nextLine());
@@ -71,4 +75,15 @@ public class RouteFileReader {
 			scanner.close();
 		}
 	}
+  
+  public static void foo() {
+    Gson gson = new Gson();
+    try {
+      Route route = gson.fromJson(readFile("src/java/MobileTracker/route1.json"), Route.class);
+      System.out.println(route.toString());
+    } catch (IOException ex) {
+      Logger.getLogger(RouteFileReader.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+          
 }

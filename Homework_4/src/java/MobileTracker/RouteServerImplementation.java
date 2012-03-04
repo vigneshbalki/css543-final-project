@@ -6,12 +6,14 @@ import java.util.*;
 
 public class RouteServerImplementation extends UnicastRemoteObject
         implements RouteServerInterface {
-  RouteFileReader reader;
-  
+  ArrayList<String> routeFileNames;
   
   public RouteServerImplementation() throws RemoteException {
     super();
-   reader = new RouteFileReader();
+    routeFileNames = new ArrayList<String>();
+    routeFileNames.add("src/java/MobileTracker/route1.json");
+    routeFileNames.add("src/java/MobileTracker/route2.json");
+    routeFileNames.add("src/java/MobileTracker/route3.json");
   }
 
   /**
@@ -23,11 +25,13 @@ public class RouteServerImplementation extends UnicastRemoteObject
   public ArrayList<Route> getRouteNameSet() throws RemoteException {
     ArrayList<Route> routes = new ArrayList<Route>() {};
     
-    for (int i = 0; i < 3; i++) {
-      Route r = new Route("Route " + i, i);
+    for (String fileName : routeFileNames) {
+      Route r = new Route();
+      r.load(fileName);
+      r.locations.clear();
       routes.add(r);
     }
-    //not sure how this will work.
+
     return routes;
   }
 
@@ -40,8 +44,9 @@ public class RouteServerImplementation extends UnicastRemoteObject
    */
   @Override
   public String getRoute(int routeID) throws RemoteException {
-    String r = "this is the route asscoiated with route " + routeID;
-    System.out.println(r);
-    return r;
+    Route r = new Route();
+    
+    r.load(routeFileNames.get(routeID - 1));
+    return r.toString();
   }
 }

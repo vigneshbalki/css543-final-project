@@ -24,6 +24,7 @@ public class RouteClient {
     try {
       routeServer = (RouteServerInterface) Naming.lookup("rmi://" + serverIp +
                     ":" + port + "/route_server");
+      System.out.println("Connected to route server.");
     } catch (NotBoundException ex) {
       Logger.getLogger(RouteClient.class.getName()).log(Level.SEVERE, null, ex);
     } catch (MalformedURLException ex) {
@@ -41,11 +42,10 @@ public class RouteClient {
     ArrayList<Route> returnSet = null;
     
     try {
-      // ivoke the metod
+      // invoke the metod
       returnSet = routeServer.getRouteNameSet();
     } catch (Exception e) {
       e.printStackTrace();
-//      System.exit(-1);
     }
     System.out.println("Returning the following list of routes " + returnSet.toString());
     return returnSet;
@@ -63,7 +63,6 @@ public class RouteClient {
       returnRoute = routeServer.getRoute(routeID);
     } catch (Exception e) {
       e.printStackTrace();
-//      System.exit(-1);
     }
     return returnRoute;
   }
