@@ -68,7 +68,12 @@
 				}
 			)
 			
-			
+			$.get('route1.json', function(data) {
+				
+				$('test_data').html(data); 
+				
+				
+			}); 
 			
 			
 		}); 
@@ -139,7 +144,7 @@
 				
 				<p id="routes_data"></p>
 				
-				<p id="test"></p>
+				<p id="test_data"></p>
 			
 			</div>
 
