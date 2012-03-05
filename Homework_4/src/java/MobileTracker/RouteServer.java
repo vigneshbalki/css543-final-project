@@ -44,12 +44,10 @@ public class RouteServer {
 
   private static void startRegistry(int port) throws RemoteException {
     try {
-      Registry registry =
-              LocateRegistry.getRegistry(port);
+      Registry registry = LocateRegistry.getRegistry(port);
       registry.list();
     } catch (RemoteException e) {
-      Registry registry =
-              LocateRegistry.createRegistry(port);
+      Registry registry = LocateRegistry.createRegistry(port);
     }
   }
 }

@@ -5,6 +5,7 @@
 package MobileTracker;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -42,14 +43,19 @@ public class RouteClient {
    */
   public ArrayList<Route> getRouteNames() {
     ArrayList<Route> returnSet = null;
+    String routeListString = null;
+    Gson gson = new Gson();
     
     try {
       // invoke the metod
-      returnSet = routeServer.getRouteNameSet();
+      routeListString = routeServer.getRouteNameSet();
+      // from http://sites.google.com/site/gson/gson-user-guide#TOC-Object-Examples
+      // Under Serializing and Deserializing Generic Types section.
+      java.lang.reflect.Type routeArray = new TypeToken<ArrayList<Route>>() {} .getType();
+      returnSet = gson.fromJson(routeListString, routeArray);
     } catch (Exception e) {
       e.printStackTrace();
     }
-    System.out.println("Returning the following list of routes " + returnSet.toString());
     return returnSet;
   }
   
@@ -58,16 +64,16 @@ public class RouteClient {
    * @return The route in json format.
    */
   public String getRoute(int routeID) {
-    Route returnRoute = null;
+    String returnRoute = null;
     
     try {
       // ivoke the metod
       returnRoute = routeServer.getRoute(routeID);
-      currRoute = returnRoute;
+      //currRoute = returnRoute;
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return returnRoute.toString();
+    return returnRoute;
   }
   
   /**
