@@ -30,11 +30,11 @@
     <script type="text/javascript">
 		function initialize() {
 
-			var myLatLng = new google.maps.LatLng(47.6063889, -122.3308333);
+			var myLatLng = new google.maps.LatLng(37.330678, -122.029988);
 
 			var myOptions = {
 				center: myLatLng, 
-				zoom: 12,
+				zoom: 15,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			var map = new google.maps.Map(document.getElementById("map_canvas"),
@@ -50,20 +50,49 @@
 			});
 			
 			// how to create a line on the map: 
-			var flightPlanCoordinates = [
-				new google.maps.LatLng(37.772323, -122.214897),
-				new google.maps.LatLng(21.291982, -157.821856),
-				new google.maps.LatLng(-18.142599, 178.431),
-				new google.maps.LatLng(-27.46758, 153.027892)
-			];
-			var flightPath = new google.maps.Polyline({
-				path: flightPlanCoordinates,
-				strokeColor: "#FF0000",
-				strokeOpacity: 1.0,
-				strokeWeight: 2
-			});
+//			var flightPlanCoordinates = [
+//				new google.maps.LatLng(37.772323, -122.214897),
+//				new google.maps.LatLng(21.291982, -157.821856),
+//				new google.maps.LatLng(-18.142599, 178.431),
+//				new google.maps.LatLng(-27.46758, 153.027892)
+//			];
+//			var flightPath = new google.maps.Polyline({
+//				path: flightPlanCoordinates,
+//				strokeColor: "#FF0000",
+//				strokeOpacity: 1.0,
+//				strokeWeight: 2
+//			});
+//
+//			flightPath.setMap(map);
+			
+			
+			$.getJSON('route1.json', function(json) {
+				
+				//alert(json.title); 
+				$('#route_title').html(json.title); 
+				
+				var locationArray = new Array(); 
+				
+				// go through the locations and add them to the map 
+				$.each(json.locations, function (i, location) {
+					
+					locationArray.push(new google.maps.LatLng(location.latitude, location.longitude)); 
+					
+				}); 
+				
+				var mapPath = new google.maps.Polyline({
+					path: locationArray,
+					strokeColor: "#FF0000",
+					strokeOpacity: 1.0,
+					strokeWeight: 4
+				});
 
-			flightPath.setMap(map);
+				mapPath.setMap(map);
+
+					//	$('test_data').html(data); 
+
+
+			});
 			
 			
 
@@ -94,9 +123,13 @@
 				"RouteServlet", 
 				{ routeid: routeIdFromQueryString }, 
 				function(data) { 
+					//alert(data); 
 					$("#route_data").html(data); 
 				}
 			)
+				
+				
+			 
 			
 			
 		}); 
@@ -158,7 +191,7 @@
 
 			<div class="style1" id="content"> 
 
-				<h1>Route title</h1>
+				<h1 id="route_title"></h1>
 				
 				<p id="route_data"></p>
 				
