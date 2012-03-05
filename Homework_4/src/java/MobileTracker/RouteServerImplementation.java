@@ -1,17 +1,19 @@
 package MobileTracker;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
 import java.rmi.server.*;
 import java.util.*;
 
 public class RouteServerImplementation extends UnicastRemoteObject
         implements RouteServerInterface {
-  RouteFileReader reader;
-  
+  ArrayList<String> routeFileNames;
   
   public RouteServerImplementation() throws RemoteException {
     super();
-   reader = new RouteFileReader();
+    routeFileNames = new ArrayList<String>();
+    routeFileNames.add("src/java/MobileTracker/route1.json");
+    routeFileNames.add("src/java/MobileTracker/route2.json");
+    routeFileNames.add("src/java/MobileTracker/route3.json");
   }
 
   /**
@@ -20,9 +22,17 @@ public class RouteServerImplementation extends UnicastRemoteObject
    * @throws RemoteException 
    */
   @Override
-  public Set<String> getRouteNameSet() throws RemoteException {
-    //not sure how this will work.
-    return null;
+  public ArrayList<Route> getRouteNameSet() throws RemoteException {
+    ArrayList<Route> routes = new ArrayList<Route>() {};
+    
+    for (String fileName : routeFileNames) {
+      Route r = new Route();
+      r.load(fileName);
+      r.locations.clear();
+      routes.add(r);
+    }
+
+    return routes;
   }
 
   /**
@@ -33,20 +43,10 @@ public class RouteServerImplementation extends UnicastRemoteObject
    * @throws RemoteException 
    */
   @Override
-  public String getRoute(int routeID) throws RemoteException {
-    //reader.readFile(null)
-    return null;
+  public Route getRoute(int routeID) throws RemoteException {
+    Route r = new Route();
+    
+    r.load(routeFileNames.get(routeID - 1));
+    return r;
   }
-
- /**
-  * 
-  * @param routeID
-  * @param r
-  * @throws RemoteException 
-  */
-  @Override
-  public void addRoute(int routeID, RouteServlet r) throws RemoteException {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
 }
