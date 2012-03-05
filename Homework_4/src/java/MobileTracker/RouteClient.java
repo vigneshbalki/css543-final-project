@@ -69,7 +69,7 @@ public class RouteClient {
     try {
       // ivoke the metod
       returnRoute = routeServer.getRoute(routeID);
-      //currRoute = returnRoute;
+      currRoute.fromString(returnRoute);
     } catch (Exception e) {
       e.printStackTrace();
     }
