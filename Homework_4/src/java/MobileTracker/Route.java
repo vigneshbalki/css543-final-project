@@ -7,6 +7,7 @@ package MobileTracker;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Dave
  */
-public class Route {
+public class Route implements Serializable {
   String title;
   Integer routeid;
   ArrayList<Location> locations;
@@ -55,14 +56,20 @@ public class Route {
     return retVal;
   }
   
-  public void load(String fileName) {
+  public void fromString(String s) {
     Gson gson = new Gson();
-    
+
+    Route route = gson.fromJson(s, Route.class);
+    this.title = route.title;
+    this.routeid = route.routeid;
+    this.locations = route.locations;
+  }
+  
+  public void load(String fileName) {
     try {
-      Route route = gson.fromJson(readFile(fileName), Route.class);
-      System.out.println(route.toString());
+      this.fromString(readFile(fileName));
     } catch (IOException ex) {
-      Logger.getLogger(RouteFileReader.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(Route.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
   

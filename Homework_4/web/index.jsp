@@ -232,7 +232,6 @@
 		$(document).ready(function() {
 			$.get(
 				"RoutesServlet", 
-				{ list: all }, 
 				function(data) { 
 					$("#routes_data").html(data); 
 				}

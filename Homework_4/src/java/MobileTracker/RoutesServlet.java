@@ -39,21 +39,21 @@ public class RoutesServlet extends HttpServlet {
     try {
 			// This is where we want to request the list of all routes
 			// and create links that the user can click on, like so: 
-			//ArrayList<Route> routeNames = client.getRouteNames();
-      //Iterator<Route> iter = routeNames.iterator();
-      
-      //while (iter.hasNext()) {
-      for (int i = 0; i < 3; i++) {  
-      //Route r = iter.next();
-        Route r = new Route("route " + i, i);
-        out.println("<a href='route.jsp?routeid=" + r.getId() + "'>" + r.getName() + "</a>");
-        System.out.println(r.getName() + " " + r.getId());
+			ArrayList<Route> routeNames = client.getRouteNames();
+      Iterator<Route> iter = routeNames.iterator();
+      while (iter.hasNext()) { 
+        Route r = iter.next();
+        out.println("<a href='route.jsp?routeid=" + r.getId().toString() + "'>" + r.getName() + "</a>");
       }
 		} finally {			
-			//out.close();
+			out.close();
 		}
 	}
 
+  
+  
+  
+  
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP

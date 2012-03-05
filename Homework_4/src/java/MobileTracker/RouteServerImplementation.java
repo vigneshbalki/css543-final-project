@@ -1,5 +1,8 @@
 package MobileTracker;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.ProcessBuilder.Redirect.Type;
 import java.rmi.RemoteException;
 import java.rmi.server.*;
 import java.util.*;
@@ -22,8 +25,10 @@ public class RouteServerImplementation extends UnicastRemoteObject
    * @throws RemoteException 
    */
   @Override
-  public ArrayList<Route> getRouteNameSet() throws RemoteException {
+  public String getRouteNameSet() throws RemoteException {
+    Gson gson = new Gson();
     ArrayList<Route> routes = new ArrayList<Route>() {};
+    String retVal = null;
     
     for (String fileName : routeFileNames) {
       Route r = new Route();
@@ -31,8 +36,13 @@ public class RouteServerImplementation extends UnicastRemoteObject
       r.locations.clear();
       routes.add(r);
     }
-
-    return routes;
+    
+    // from http://sites.google.com/site/gson/gson-user-guide#TOC-Object-Examples
+    // Under Serializing and Deserializing Generic Types section.
+    java.lang.reflect.Type routeArray = new TypeToken<ArrayList<Route>>() {} .getType();
+    retVal = gson.toJson(routes, routeArray);
+    System.out.println(retVal);
+    return retVal;
   }
 
   /**
@@ -43,10 +53,10 @@ public class RouteServerImplementation extends UnicastRemoteObject
    * @throws RemoteException 
    */
   @Override
-  public Route getRoute(int routeID) throws RemoteException {
+  public String getRoute(int routeID) throws RemoteException {
     Route r = new Route();
     
     r.load(routeFileNames.get(routeID - 1));
-    return r;
+    return r.toString();
   }
 }
