@@ -4,6 +4,8 @@
  */
 package MobileTracker;
 
+import com.google.gson.Gson;
+
 /**
  *
  * @author clivdahl
@@ -20,9 +22,14 @@ public class Test {
 		
 		System.out.println(aRoute); 
 		
-		//Route r = new Route(); 
-		//r.load("src/java/MobileTracker/route1.json");
-	
+//		Route obj = new Route(); 
+//		//r.load("src/java/MobileTracker/route1.json");
+//	
+//		
+//		
+//		Gson gson = new Gson();
+//		String json = gson.toJson(obj);
+		
 	}
 	
 }

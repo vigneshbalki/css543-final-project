@@ -30,17 +30,20 @@ public class RouteServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
+		
 		PrintWriter out = response.getWriter();
-    
-    try {
+		
+		try {
+			
 			out.println("<p>Get routeid: " + request.getParameter("routeid") + "</p>");
 			int routeID = Integer.parseInt(request.getParameter("routeid"));
-      String aRoute = client.getRoute(routeID);
+			String aRoute = client.getRoute(routeID);
+			out.println(aRoute);
 			
-      out.println(aRoute);
 		} finally {			
 			out.close();
 		}
+
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
