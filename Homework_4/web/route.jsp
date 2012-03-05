@@ -30,24 +30,7 @@
     <script type="text/javascript">
 		function initialize() {
 
-			var myLatLng = new google.maps.LatLng(37.330678, -122.029988);
-
-			var myOptions = {
-				center: myLatLng, 
-				zoom: 15,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
-			var map = new google.maps.Map(document.getElementById("map_canvas"),
-				myOptions);
-
-
-			// how to drop one pin on the map 
-			var marker = new google.maps.Marker({
-				position: myLatLng,
-				map: map,
-				title:"Hello World!", 
-				animation: google.maps.Animation.DROP
-			});
+			
 			
 			// how to create a line on the map: 
 //			var flightPlanCoordinates = [
@@ -65,34 +48,94 @@
 //
 //			flightPath.setMap(map);
 			
+			var routeIdFromQueryString = qs("routeid");  
 			
-			$.getJSON('route1.json', function(json) {
-				
-				//alert(json.title); 
-				$('#route_title').html(json.title); 
-				
-				var locationArray = new Array(); 
-				
-				// go through the locations and add them to the map 
-				$.each(json.locations, function (i, location) {
+			$.getJSON(
+				"RouteServlet", 
+				{ routeid: routeIdFromQueryString }, 
+				function(json) { 
 					
-					locationArray.push(new google.maps.LatLng(location.latitude, location.longitude)); 
 					
-				}); 
-				
-				var mapPath = new google.maps.Polyline({
-					path: locationArray,
-					strokeColor: "#FF0000",
-					strokeOpacity: 1.0,
-					strokeWeight: 4
-				});
+					var myLatLng = new google.maps.LatLng(json.locations[0].latitude, json.locations[0].longitude);
+					var lastLatLng = new google.maps.LatLng(json.locations[json.locations.length-1].latitude, json.locations[json.locations.length-1].longitude); 
 
-				mapPath.setMap(map);
-
-					//	$('test_data').html(data); 
+					var myOptions = {
+						center: myLatLng, 
+						zoom: 15,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+					var map = new google.maps.Map(document.getElementById("map_canvas"),
+						myOptions);
 
 
-			});
+					// how to drop one pin on the map 
+					var marker = new google.maps.Marker({
+						position: myLatLng,
+						map: map,
+						title:"Start", 
+						animation: google.maps.Animation.DROP
+					});
+					
+					var endMarker = new google.maps.Marker({
+						position: lastLatLng, 
+						map: map, 
+						title: "End", 
+						animation: google.maps.Animation.DROP
+					}); 
+					
+					
+					$('#route_title').html(json.title); 
+					
+					  
+					var locationArray = new Array(); 
+
+					// go through the locations and add them to the map 
+					$.each(json.locations, function (i, location) {
+
+						locationArray.push(new google.maps.LatLng(location.latitude, location.longitude)); 
+
+					}); 
+
+					var mapPath = new google.maps.Polyline({
+						path: locationArray,
+						strokeColor: "#FF0000",
+						strokeOpacity: 1.0,
+						strokeWeight: 4
+					});
+
+					mapPath.setMap(map);  
+					
+				}
+			)
+			
+//			
+//			$.getJSON('route1.json', function(json) {
+//				
+//				//alert(json.title); 
+//				$('#route_title').html(json.title); 
+//				
+//				var locationArray = new Array(); 
+//				
+//				// go through the locations and add them to the map 
+//				$.each(json.locations, function (i, location) {
+//					
+//					locationArray.push(new google.maps.LatLng(location.latitude, location.longitude)); 
+//					
+//				}); 
+//				
+//				var mapPath = new google.maps.Polyline({
+//					path: locationArray,
+//					strokeColor: "#FF0000",
+//					strokeOpacity: 1.0,
+//					strokeWeight: 4
+//				});
+//
+//				mapPath.setMap(map);
+//
+//					//	$('test_data').html(data); 
+//
+//
+//			});
 			
 			
 
@@ -117,16 +160,7 @@
 			
 			// route.jsp?routeid=1
 			
-			var routeIdFromQueryString = qs("routeid");  
 			
-			$.get(
-				"RouteServlet", 
-				{ routeid: routeIdFromQueryString }, 
-				function(data) { 
-					//alert(data); 
-					$("#route_data").html(data); 
-				}
-			)
 				
 				
 			 

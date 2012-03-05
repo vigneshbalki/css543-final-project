@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RoutesServlet extends HttpServlet {
   
-	//RouteClient client = new RouteClient("localhost", 7311);
+	RouteClient client = new RouteClient("localhost", 7311);
 	
 	/**
 	 * Processes requests for both HTTP
@@ -49,7 +49,7 @@ public class RoutesServlet extends HttpServlet {
       Iterator<Route> iter = routeNames.iterator();
       while (iter.hasNext()) { 
         Route r = iter.next();
-        out.println("<a href='route.jsp?routeid=" + r.getId().toString() + "'>" + r.getName() + "</a>");
+        out.println("<a href='route.jsp?routeid=" + r.getId().toString() + "'>" + r.getName() + "</a><br />");
       }
 		} finally {			
 			out.close();

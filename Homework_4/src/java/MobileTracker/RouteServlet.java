@@ -35,13 +35,13 @@ public class RouteServlet extends HttpServlet {
 		
 		try {
 			
-			out.println("<p>Get routeid: " + request.getParameter("routeid") + "</p>");
+			//out.println("<p>Get routeid: " + request.getParameter("routeid") + "</p>");
 			int routeID = Integer.parseInt(request.getParameter("routeid"));
 			String aRoute = client.getRoute(routeID);
 			out.println(aRoute);
 			
 		} finally {			
-			out.close();
+			//out.close();
 		}
 
 	}
