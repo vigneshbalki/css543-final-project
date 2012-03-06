@@ -4,7 +4,7 @@
     Author     : clivdahl
 --%>
 
-<%! String last_updated = "03012012"; %> 
+<%! String last_updated = "03052012d"; %> 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,36 +25,160 @@
     </style>
 	
 	<script type="text/javascript"
-      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBwEjS8fI30MwKEpwcnAf4NdOZym66Ot5s&sensor=false">
+			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBwEjS8fI30MwKEpwcnAf4NdOZym66Ot5s&sensor=false">
     </script>
+	
+		
+	<script type="text/javascript"
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+	</script>
+	
+	
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+	
     <script type="text/javascript">
-		function initialize() {
+		
+		
+		google.load("visualization", "1", {packages:["corechart"]});
+		google.setOnLoadCallback(drawChart);
+		
+		 
+		var routeIdFromQueryString;
+		 
+		var json; 
+		
+		function initializeChart() {
+			
+			
+			
+			
+		}
+		
+
+		function drawChart() {
+			
+			routeIdFromQueryString = qs("routeid");
+			
+			var dataString = "routeid=" + routeIdFromQueryString; 
+			var speedData = new Array();
+			
+//			$.getJSON(
+//				"RouteServlet", 
+//				{ routeid: routeIdFromQueryString }, 
+//				function(jsonReturn) { 
+//					
+//					json = jsonReturn; 
+//					
+//				}
+//				); 
+			
+			jsonData = $.ajax({
+				url: "RouteServlet", 
+				data: dataString,
+				dataType:"json",
+				async: false, 
+				success: function(dataReturned) {
+					jsonData = dataReturned; 
+					//alert(jsonData);	
+					
+					//alert(jsonData.locations[0].speed);
+					
+					$.each(dataReturned.locations, function (i, location) {
+						
+						 
+						
+						speedData.push(location.speed);  
+					}); 
+					
+				}
+			});
+				
+				 
+			
+			var data = new google.visualization.DataTable();
+			
+//			data.addColumn('string', 'Year');
+//			data.addColumn('number', 'Sales');
+//			data.addColumn('number', 'Expenses');
+//			data.addRows([
+//			['2004', 1000, 400],
+//			['2005', 1170, 460],
+//			['2006',  860, 580],
+//			['2007', 1030, 540]
+//			]);
+			
+			data.addColumn('number', 'Point');
+			data.addColumn('number', 'Speed'); 
+			
+
 
 			
+			for (var i = 0; i < speedData.length; i++) {
+				
+				data.addRow([i, speedData[i]]);
+				
+			}
+//			 
+//			 
+//			$.getJSON(
+//				"RouteServlet", 
+//				{ routeid: routeIdFromQueryString }, 
+//				function(json) { 
+//					
+//					//alert(json); 
+//					
+//					$.each(json.locations, function (i, location) {
+//						
+//						//speedData.push(location.speed); 
+//						
+//						data.addRow(i, location.speed); 
+//						
+//					}); 
+//				
+//					
+//				}
+//			); 
+//			 
+			 
 			
-			// how to create a line on the map: 
-//			var flightPlanCoordinates = [
-//				new google.maps.LatLng(37.772323, -122.214897),
-//				new google.maps.LatLng(21.291982, -157.821856),
-//				new google.maps.LatLng(-18.142599, 178.431),
-//				new google.maps.LatLng(-27.46758, 153.027892)
-//			];
-//			var flightPath = new google.maps.Polyline({
-//				path: flightPlanCoordinates,
-//				strokeColor: "#FF0000",
-//				strokeOpacity: 1.0,
-//				strokeWeight: 2
-//			});
-//
-//			flightPath.setMap(map);
+			var options = {
+			title: 'Speed Data'
+			};
+
+			var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
 			
-			var routeIdFromQueryString = qs("routeid");  
+			getRouteData(); 
+			
+		}
+
+		
+		function initialize() {
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		function getRouteData() {
+
+
+			  
 			
 			$.getJSON(
 				"RouteServlet", 
 				{ routeid: routeIdFromQueryString }, 
 				function(json) { 
 					
+					//alert(json);
 					
 					var myLatLng = new google.maps.LatLng(json.locations[0].latitude, json.locations[0].longitude);
 					var lastLatLng = new google.maps.LatLng(json.locations[json.locations.length-1].latitude, json.locations[json.locations.length-1].longitude); 
@@ -88,13 +212,24 @@
 					
 					  
 					var locationArray = new Array(); 
-
+					
+					// fit the map into the bounds of the points 
+					var latlngbounds = new google.maps.LatLngBounds( );
+					
+					
 					// go through the locations and add them to the map 
 					$.each(json.locations, function (i, location) {
-
-						locationArray.push(new google.maps.LatLng(location.latitude, location.longitude)); 
-
+						
+						var newLatLng = new google.maps.LatLng(location.latitude, location.longitude); 
+						locationArray.push(newLatLng); 
+						latlngbounds.extend(newLatLng); 
+						
+						//speedData.push(location.speed); 
+						
 					}); 
+					
+					// center the map on all points plotted 
+					map.fitBounds( latlngbounds ); 
 
 					var mapPath = new google.maps.Polyline({
 						path: locationArray,
@@ -105,39 +240,14 @@
 
 					mapPath.setMap(map);  
 					
+					
+					
+					
+					
 				}
 			)
 			
-//			
-//			$.getJSON('route1.json', function(json) {
-//				
-//				//alert(json.title); 
-//				$('#route_title').html(json.title); 
-//				
-//				var locationArray = new Array(); 
-//				
-//				// go through the locations and add them to the map 
-//				$.each(json.locations, function (i, location) {
-//					
-//					locationArray.push(new google.maps.LatLng(location.latitude, location.longitude)); 
-//					
-//				}); 
-//				
-//				var mapPath = new google.maps.Polyline({
-//					path: locationArray,
-//					strokeColor: "#FF0000",
-//					strokeOpacity: 1.0,
-//					strokeWeight: 4
-//				});
-//
-//				mapPath.setMap(map);
-//
-//					//	$('test_data').html(data); 
-//
-//
-//			});
-			
-			
+			return false; 
 
 		}
 
@@ -149,10 +259,7 @@
 		}
     </script>
 	
-	
-	<script type="text/javascript"
-			src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
-	</script>
+
 	
 	<script text="text/javascript"> 
 	
@@ -230,7 +337,12 @@
 				<p id="route_data"></p>
 				
 				<div id="map_canvas" style="width:600px; height:400px"></div>
-			
+	
+				<br />
+				
+				<!--Div that will hold the pie chart-->
+				<div id="chart_div" style="width:400; height:300"></div>
+				
 			</div>
  
 			<div class="clear"></div>
