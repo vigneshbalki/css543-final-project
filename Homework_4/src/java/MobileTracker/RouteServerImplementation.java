@@ -25,7 +25,7 @@ public class RouteServerImplementation extends UnicastRemoteObject
    * @throws RemoteException 
    */
   @Override
-  public String getRouteNameSet() throws RemoteException {
+  public synchronized String getRouteNameSet() throws RemoteException {
     Gson gson = new Gson();
     ArrayList<Route> routes = new ArrayList<Route>() {};
     String retVal = null;
@@ -53,7 +53,7 @@ public class RouteServerImplementation extends UnicastRemoteObject
    * @throws RemoteException 
    */
   @Override
-  public String getRoute(int routeID) throws RemoteException {
+  public synchronized String getRoute(int routeID) throws RemoteException {
     Route r = new Route();
     
     r.load(routeFileNames.get(routeID - 1));
