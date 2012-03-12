@@ -1,16 +1,35 @@
+/*
+ * Authors:    Dave Hunn, Chris Livdahl
+ * Date:       3/12/12
+ * Course:     CSS 543
+ * Instructor: M. Fukuda
+ */
 package MobileTracker;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-//import java.lang.ProcessBuilder.Redirect.Type;
 import java.rmi.RemoteException;
-import java.rmi.server.*;
-import java.util.*;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
+/**
+ * RouteServerImplementation: This class retrieves route data from 
+ *                            json-formatted text files and returns it
+ *                            via RMI to the client.
+ */
 public class RouteServerImplementation extends UnicastRemoteObject
         implements RouteServerInterface {
+  /**
+   * routeFileNames: A list of know route files.
+   */
   ArrayList<String> routeFileNames;
   
+  /**
+   * Default Constructor: routeFileNames is initialized with hard-coded file
+   *                      file names.
+   * 
+   * @throws RemoteException 
+   */
   public RouteServerImplementation() throws RemoteException {
     super();
     routeFileNames = new ArrayList<String>();
@@ -20,15 +39,17 @@ public class RouteServerImplementation extends UnicastRemoteObject
   }
 
   /**
+   * getRouteTitles:
    * 
-   * @return The set of route names stored in the route server.
+   * @return A json-formatted string version of an ArrayList of Route objects.
+   * 
    * @throws RemoteException 
    */
   @Override
-  public synchronized String getRouteNameSet() throws RemoteException {
+  public synchronized String getRouteTitles() throws RemoteException {
     Gson gson = new Gson();
     ArrayList<Route> routes = new ArrayList<Route>() {};
-    String retVal = null;
+    String retVal;
     
     for (String fileName : routeFileNames) {
       Route r = new Route();
@@ -46,17 +67,21 @@ public class RouteServerImplementation extends UnicastRemoteObject
   }
 
   /**
+   * getRoute:
    * 
-   * @param routeName The name of the route you wish to retrieve.
-   * @return If routeName exists, then the associated route is returned.
-   *         Returns null if routeName does not exist.
+   * @param routeID The id of the route you wish to retrieve.
+   * @return If routeID exists, then the associated route is returned as a 
+   *         json-formatted string.
+   * 
    * @throws RemoteException 
    */
   @Override
   public synchronized String getRoute(int routeID) throws RemoteException {
     Route r = new Route();
     
-    r.load(routeFileNames.get(routeID - 1));
+    if (routeID > 0 && routeID <routeFileNames.size() + 1) {
+      r.load(routeFileNames.get(routeID - 1));
+    }
     return r.toString();
   }
 }

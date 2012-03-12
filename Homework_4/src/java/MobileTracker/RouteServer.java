@@ -1,15 +1,20 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Authors:    Dave Hunn, Chris Livdahl
+ * Date:       3/12/12
+ * Course:     CSS 543
+ * Instructor: M. Fukuda
  */
 package MobileTracker;
 
-import java.rmi.*;
-import java.rmi.server.*;
-import java.rmi.registry.*;
-import java.net.*;
-import java.io.*;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
+/**
+ * RouteServer: This class starts the RMI server and registers the 
+ *              a RouteServerImplementation object with the server.
+ */
 public class RouteServer {
 
   public static void main(String args[]) {
@@ -42,6 +47,14 @@ public class RouteServer {
     }
   }
 
+  /**
+   * startRegistry: This method first looks for an existing RMI registry. If
+   *                it finds one then it stores a reference to it. Otherwise
+   *                a new registry is created.
+   * 
+   * @param port The port to look for or create the registry.
+   * @throws RemoteException 
+   */
   private static void startRegistry(int port) throws RemoteException {
     try {
       Registry registry = LocateRegistry.getRegistry(port);

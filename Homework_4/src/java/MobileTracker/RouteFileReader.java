@@ -1,18 +1,14 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Authors:    Dave Hunn, Chris Livdahl
+ * Date:       3/12/12
+ * Course:     CSS 543
+ * Instructor: M. Fukuda
  */
 package MobileTracker;
 
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;

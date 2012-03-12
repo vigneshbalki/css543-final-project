@@ -1,15 +1,15 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Authors:    Dave Hunn, Chris Livdahl
+ * Date:       3/12/12
+ * Course:     CSS 543
+ * Instructor: M. Fukuda
  */
 package MobileTracker;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.rmi.Naming;
-import java.util.*;
-import javax.servlet.ServletContext;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,23 +33,22 @@ public class RoutesServlet extends HttpServlet {
 	 * @throws ServletException if a servlet-specific error occurs
 	 * @throws IOException if an I/O error occurs
 	 */
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
+	protected void processRequest(HttpServletRequest request, 
+          HttpServletResponse response) throws ServletException, IOException {
 		
+    response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
- 		
+ 		ArrayList<Route> routeNames;
+    
 		try {
-			
-			//out.println("test"); 
-			
-			// This is where we want to request the list of all routes
-			// and create links that the user can click on, like so: 
-			ArrayList<Route> routeNames = client.getRouteNames();
+			synchronized(client) {
+        routeNames = client.getRouteNames();
+      }
       Iterator<Route> iter = routeNames.iterator();
       while (iter.hasNext()) { 
         Route r = iter.next();
-        out.println("<a href='route.jsp?routeid=" + r.getId().toString() + "'>" + r.getName() + "</a><br />");
+        out.println("<a href='route.jsp?routeid=" + r.getId().toString() + "'>" 
+                + r.getName() + "</a><br />");
       }
 		} finally {			
 			out.close();

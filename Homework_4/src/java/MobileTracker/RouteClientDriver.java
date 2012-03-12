@@ -1,11 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Authors:    Dave Hunn, Chris Livdahl
+ * Date:       3/12/12
+ * Course:     CSS 543
+ * Instructor: M. Fukuda
  */
 package MobileTracker;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  *

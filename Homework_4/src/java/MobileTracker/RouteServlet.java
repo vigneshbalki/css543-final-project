@@ -1,6 +1,8 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Authors:    Dave Hunn, Chris Livdahl
+ * Date:       3/12/12
+ * Course:     CSS 543
+ * Instructor: M. Fukuda
  */
 package MobileTracker;
 
@@ -29,21 +31,20 @@ public class RouteServlet extends HttpServlet {
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
 		
+    response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		String aRoute;
 		
-		try {
-			
-			//out.println("<p>Get routeid: " + request.getParameter("routeid") + "</p>");
+    try {
 			int routeID = Integer.parseInt(request.getParameter("routeid"));
-			String aRoute = client.getRoute(routeID);
+			synchronized(client) {
+        aRoute = client.getRoute(routeID);
+      }
 			out.println(aRoute);
-			
 		} finally {			
-			//out.close();
+			out.close();
 		}
-
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
